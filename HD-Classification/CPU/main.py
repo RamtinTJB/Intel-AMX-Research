@@ -5,6 +5,7 @@
 #python main.py --path isolet.pickle --d 1000 --alg perm --epoch 20 --L 64 
 
 import HD
+import HD_amx
 import numpy as np
 import sys
 import time
@@ -59,6 +60,9 @@ if data_size is not None:
     X_train, y_train = adjust_data_size(X_train, y_train, data_size)
     X_test, y_test = adjust_data_size(X_test, y_test, data_size)
 
-acc = HD.train(X_train, y_train, X_test, y_test, D, alg, epoch, lr, L, amx)
+if (amx):
+    acc = HD_amx.train_amx(X_train, y_train, X_test, y_test, D, alg, epoch, lr, L)
+else:
+    acc = HD.train(X_train, y_train, X_test, y_test, D, alg, epoch, lr, L)
 print('\n')
 print(acc)
